@@ -1,13 +1,11 @@
+
 import './App.css';
-import SignIn from './Pages/SignIn/SignIn';
-import SignUp from './Pages/SignUp/SignUp';
-
-
+import Dashboard from './Component/Dashboard/Dashboard';
+// import { Router } from './Router/Router';
 function App() {
   return (
     <div className="App">
-      <SignIn></SignIn>
-      <SignUp></SignUp>
+      <Dashboard/>
     </div>
   );
 }
