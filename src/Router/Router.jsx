@@ -10,12 +10,13 @@ export const Router = () => {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Dashboard/>
-                    {/* <Route exact path={"/"} element={<SignInForm />}></Route>
+                    {/* <Dashboard/> */}
+                    <Route exact path={"/"} element={<SignInForm />}></Route>
                     <Route exact path={"/signup"} element={<SignUpForm />}></Route>
-                    <Route exact path= {"/dashboard"} element={<Dashboard/>}></Route> */}
+                    <Route exact path= {"/dashboard"} element={<Dashboard/>}></Route>
                 </Routes>
             </BrowserRouter>
         </div>
+        
     )
 }

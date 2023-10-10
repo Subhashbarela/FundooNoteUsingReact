@@ -2,16 +2,22 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
-import AddAlertRoundedIcon from '@mui/icons-material/AddAlertRounded';
-import ContentCopyRoundedIcon   from '@mui/icons-material/ContentCopyRounded';
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { LightbulbOutlined as Lightbulb, ArchiveOutlined as Archive, DeleteOutlineOutlined as Delete } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
-import HeaderBar from '../Header/HeaderBar';
+import List from '@mui/material/List';
+import CssBaseline from '@mui/material/CssBaseline';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
+    marginTop: 65,
     width: drawerWidth,
     transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -21,20 +27,19 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
+    marginTop: 65,
     transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
-    width: `calc(${theme.spacing(7)} + 1px)`,
+    width: `calc(${theme.spacing(7)} + 0.5px)`,
     [theme.breakpoints.up('sm')]: {
-        width: `calc(${theme.spacing(9)} + 1px)`,
+        width: `calc(${theme.spacing(8)} + 1px)`,
     },
 });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-    ...theme.mixins.toolbar,
-}));
+
 
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -54,47 +59,162 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-function Navdrawer() {
+export default function MiniDrawer(props) {
     const theme = useTheme();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
-    const handleDrawer = () => {
-        setOpen(prevState => !prevState);
+    const handleDrawerOpen = () => {
+        setOpen(true);
     };
-    const navList = [
-        { id: 1, name: 'Notes', icon: <Lightbulb />, route: '/' },
-        { id: 2, name: 'Reminder', icon: <AddAlertRoundedIcon />, route: '/' },
-        { id: 3, name: 'Edit Labels', icon: <ContentCopyRoundedIcon/>, route: '/' },
-        { id: 4, name: 'Archives', icon: <Archive />, route: '/archive' },
-        { id: 5, name: 'Trash', icon: <Delete />, route: '/delete' },
-    ]
-    
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
+    const selectMenuOption = (menuName) => {
+        props.listenToDrawer(menuName)
+        props.dispatch({
+
+            type: `${menuName}`
+        })
+    }
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <HeaderBar
-                open={open}
-                handleDrawer={handleDrawer}
-            />
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader></DrawerHeader>
+            <CssBaseline />
+
+            <Drawer variant="permanent" open={props.drawerToggle} sx={{zIndex:-1}} PaperProps={{
+              sx:{
+                border:'none',
+              }
+            }}>
+                {/* <Divider /> */}
                 <List>
-        {
-            navList.map(list => (
-                <ListItem button key={list.id}>
-                    <Link to={`${list.route}`} style={{ textDecoration: 'none', display: 'flex', color: 'inherit'}}>
-                        <ListItemIcon style={{ alignItems: 'center'}}>
-                            {list.icon}
-                        </ListItemIcon>
-                        <ListItemText primary={list.name} />
-                    </Link>
-                </ListItem>
-            ))
-        }
-        </List>
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Notes")}>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                px: 2.5,
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start',
+                            }}
+                            >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <LightbulbOutlinedIcon />
+                                {/* icons */}
+                            </ListItemIcon>
+                            <ListItemText primary="Notes" style={{ marginLeft: 30 }} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Reminders")}>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                //justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start'
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <NotificationsNoneIcon />
+                                {/* icons */}
+                            </ListItemIcon>
+                            <ListItemText primary="Reminders" style={{ marginLeft: 30 }} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Edit")}>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                //justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start'
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <EditOutlinedIcon />
+                                {/* icons */}
+                            </ListItemIcon>
+                            <ListItemText primary="Edit labels" style={{ marginLeft: 30 }} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Archive")}>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                //justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start'
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <ArchiveOutlinedIcon />
+                                {/* icons */}
+                            </ListItemIcon>
+                            <ListItemText primary="Archive" style={{ marginLeft: 30 }} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Bin")}>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                //justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'flex-start'
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <DeleteOutlineOutlinedIcon />
+                                {/* icons */}
+                            </ListItemIcon>
+                            <ListItemText primary="Bin" style={{ marginLeft: 30 }} />
+                        </ListItemButton>
+                    </ListItem>
+
+                </List>
+
+
             </Drawer>
+
         </Box>
     );
 }
-
-export default Navdrawer;
