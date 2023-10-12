@@ -6,16 +6,13 @@ import { useNavigate } from 'react-router-dom';
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])([a-zA-Z0-9]*).{8,}$/;
 
-export default function SignIn() {
-
-    let navigate = useNavigate();
+export default function SignIn() {    
 
     const [signInObj, setSignInObj] = useState({ email: '', password: '' });
 
     const regObj = { emailBorder: false, emailHelper: '', passBorder: false, passHelper: '' }
 
     const [regexObj, setRegexObj] = useState(regObj)
-
     
     const takeEmail = (email) => {
         setSignInObj(prevState => (
@@ -35,8 +32,7 @@ export default function SignIn() {
     }
     console.log(signInObj);
 
-    const verifyEmailPass = () => {
-        //let navigate = useNavigate();
+    const verifyEmailPass = () => {    
         let emailCheck = emailRegex.test(signInObj.email)
         let passCheck = passwordRegex.test(signInObj.password)
 
@@ -69,10 +65,9 @@ export default function SignIn() {
             }).catch((error) =>{
                 console.log(error)
             })
-        }      
-       
+        }        
     }    
-
+    let navigate = useNavigate();
     const navigateToSignUp = () =>{
         navigate("/signup");
     }

@@ -6,8 +6,8 @@ import { Router } from './Router/Router';
 function App() {
   return (
     <div className="App">
-      <Dashboard/>
-      {/* <Router/> */}
+      {/* <Dashboard/> */}
+      <Router/>
     </div>
   );
 }

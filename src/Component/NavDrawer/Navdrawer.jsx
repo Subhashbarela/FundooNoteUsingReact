@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -59,8 +59,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function MiniDrawer(props) {
-    const theme = useTheme();
+export default function Navdrawer(props) {   
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
@@ -87,8 +86,7 @@ export default function MiniDrawer(props) {
               sx:{
                 border:'none',
               }
-            }}>
-                {/* <Divider /> */}
+            }}>             
                 <List>
                     <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Notes")}>
                         <ListItemButton
@@ -185,7 +183,7 @@ export default function MiniDrawer(props) {
                             <ListItemText primary="Archive" style={{ marginLeft: 30 }} />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Bin")}>
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => selectMenuOption("Pin")}>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,

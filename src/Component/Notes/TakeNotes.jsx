@@ -8,15 +8,16 @@ const DrawerHeader = styled('div')(({ theme }) =>({
     ...theme.mixins.toolbar,
 }))
 
+
+
 const Notes = () => {
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex',marginLeft:'30%' }}>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />   
                 <Form /> 
             </Box>
         </Box>
-
     )
 }
 

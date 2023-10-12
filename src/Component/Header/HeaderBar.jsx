@@ -96,14 +96,15 @@ export default function Header(props) {
                     backgroundColor: 'lightgray',
                 }}
             >
-                <SearchOutlinedIcon />
+                {/* search input of headerbar */}
+                <SearchOutlinedIcon  /> 
                 <InputBase
                     sx={{
                         border: 'none',
                         outline: 'none',
                         height: '85%',
-                        width: '70%',
-                        paddingLeft: 10,
+                        width: '30%',
+                        paddingLeft: 10,                        
                     }}
                     type="text"
                     placeholder="Search"
